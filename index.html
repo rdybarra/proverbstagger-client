@@ -1,0 +1,68 @@
+<!doctype>
+<html ng-app="verseApp">
+
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab|Roboto|Roboto+Condensed' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+  <header id="header">
+    <div class="inner">
+      <div id="logo">
+        <span>A proverb for every occassion...</span>
+      </div>
+    </div>
+  </header>
+
+  <section id="main">
+    <div class="inner">
+
+      <div id="verses" ng-controller="ProverbsController as proverbs">
+        <h1>Proverbs</h1>
+
+        <div class="verse" ng-repeat="proverb in proverbs.proverbs">
+          <p>
+            <strong>{{proverb.verse}} &middot; </strong>
+            <span class="verse-text">{{proverb.text}}</span>
+          </p>
+
+          <section class="keywords">
+            This verse is about...
+            <span ng-repeat="keyword in proverb.keywords">
+              {{keyword.value}} ({{keyword.count}})
+            </span>
+
+            <div class="keyword-form-wrap" keyword-form></div>
+          </section><!-- keywords -->
+
+        </div><!-- .verse -->
+
+      </div><!-- #verses -->
+
+    </div><!-- .inner -->
+  </section><!-- #main -->
+
+  <footer id="footer">
+    <div class="inner">
+
+      <div id="footer-date">
+        &copy;2014
+      </div>
+
+      <div id="footer-message">
+        <p>You've reached the bottom</p>
+      </div>
+
+
+    </div><!-- .inner -->
+  </footer>
+
+
+  <script type="text/javascript" src="vendor/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="components/verses/verses.js"></script>
+</body>
+
+</html>

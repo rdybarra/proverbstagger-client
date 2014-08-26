@@ -1,0 +1,77 @@
+// Screen
+// ======
+
+@import "init";
+@import "normalize";
+@import "grids";
+@import "html5bp";
+@import "forms";
+
+
+body {
+  color: $textColor;
+  font-family: $sansSerif;
+}
+
+.inner {
+  @include container(80%);
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+header#header {
+  padding: 20px 0;
+  background: $bgAccent3;
+  color: $textColor3;
+}
+
+.verse-text {
+  font-family: $serif;
+  font-size: 1.2em;
+}
+
+.keywords {
+  font-family: $condensed;
+  background: $bgAccent1;
+  display: inline-block;
+  padding: 10px;
+  @include border-radius(7px);
+
+  .keyword-form-wrap {
+    display: inline-block;
+  }
+
+  .keyword-form {
+    display: inline-block;
+
+    input {
+      width: 150px;
+    }
+
+    input.submit {
+      display: none;
+    }
+
+  }
+
+}
+
+#main {
+  padding: 20px 0;
+}
+
+footer#footer {
+  padding: 20px 0;
+  background-color: $bgAccent2;
+  color: $textColor2;
+
+  #footer-message,
+  #footer-date {
+    @include span(4 of 12);
+  }
+
+  p {
+    margin: 0;
+  }
+
+}
