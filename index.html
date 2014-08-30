@@ -30,8 +30,8 @@
 
           <section class="keywords">
             This verse is about...
-            <span ng-repeat="keyword in proverb.keywords">
-              {{keyword.value}} ({{keyword.count}})
+            <span ng-repeat="association in proverb.keyword_associations">
+              {{association.keyword.value}} ({{association.count}})
             </span>
 
             <div class="keyword-form-wrap" keyword-form></div>
@@ -60,7 +60,8 @@
   </footer>
 
 
-  <script type="text/javascript" src="vendor/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="components/verses/verses.js"></script>
 </body>

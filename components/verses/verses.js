@@ -5,8 +5,8 @@
     var self = this;
     self.proverbs = [];
 
-    $http.get('data/proverbs1.json').success(function(data) {
-      self.proverbs = data;
+    $http.get('http://localhost:3000/api/chapter/1').success(function(data) {
+      self.proverbs = data.verses;
     });
 
   } ]);
@@ -15,29 +15,38 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-form.html',
-      controller: function() {
-
+      controller: function($http) {
         this.keyword = {};
+        this.association = {};
 
-        this.addKeyword = function(proverb) {
+        this.addAssociation = function(proverb) {
           var unique = true;
 
-          for (var i = proverb.keywords.length - 1; i >= 0; i--) {
-            if (this.keyword.value == proverb.keywords[i].value) {
-              proverb.keywords[i].count += 1;
+          for (var i = proverb.keyword_associations.length - 1; i >= 0; i--) {
+            if (this.keyword.value == proverb.keyword_associations[i].keyword.value) {
+              proverb.keyword_associations[i].count += 1;
               unique = false;
             }
           };
 
           if (unique) {
-            this.keyword.count = 1;
-            proverb.keywords.push(this.keyword);
+            this.association.keyword = this.keyword;
+            this.association.count = 1;
+            proverb.keyword_associations.push(this.association);
           }
+
+          var data = {
+            'keyword': this.keyword
+          };
+
+          $http.put('http://localhost:3000/api/verse/' + proverb.id, data).success(function(data) {
+            console.log('saved');
+          });
 
           this.keyword = {};
         };
       },
-      controllerAs: 'keyword'
+      controllerAs: 'association'
     };
   });
 

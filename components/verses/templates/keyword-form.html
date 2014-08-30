@@ -1,8 +1,8 @@
-    <form name="keywordForm" class="keyword-form" ng-submit="keywordForm.$valid && keyword.addKeyword(proverb)" novalidate>
+    <form name="keywordForm" class="keyword-form" ng-submit="keywordForm.$valid && association.addAssociation(proverb)" novalidate>
       <span class="new">
-        {{keyword.keyword.value}}
+        {{association.keyword.value}}
       </span>
 
-      <input ng-model="keyword.keyword.value" type="text" placeholder="your tag" required/>
+      <input ng-model="association.keyword.value" type="text" placeholder="your tag" required/>
       <input class="submit" type="submit" value="submit" />
     </form>
