@@ -19,27 +19,7 @@
   <section id="main">
     <div class="inner">
 
-      <div id="verses" ng-controller="ProverbsController as proverbs">
-        <h1>Proverbs</h1>
-
-        <div class="verse" ng-repeat="proverb in proverbs.proverbs">
-          <p>
-            <strong>{{proverb.verse}} &middot; </strong>
-            <span class="verse-text">{{proverb.text}}</span>
-          </p>
-
-          <section class="keywords">
-            This verse is about...
-            <span ng-repeat="association in proverb.keyword_associations">
-              {{association.keyword.value}} ({{association.count}})
-            </span>
-
-            <div class="keyword-form-wrap" keyword-form></div>
-          </section><!-- keywords -->
-
-        </div><!-- .verse -->
-
-      </div><!-- #verses -->
+      <div ng-view></div>
 
     </div><!-- .inner -->
   </section><!-- #main -->
@@ -55,13 +35,12 @@
         <p>You've reached the bottom</p>
       </div>
 
-
     </div><!-- .inner -->
   </footer>
 
-
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-encode-uri/dist/angular-encode-uri.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="components/verses/verses.js"></script>
 </body>

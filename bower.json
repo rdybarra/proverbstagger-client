@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular-route": "~1.2.23",
-    "angular": "~1.2.23"
+    "angular": "~1.2.23",
+    "angular-encode-uri": "~1.0.0"
   }
 }

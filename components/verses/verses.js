@@ -1,12 +1,27 @@
 (function(){
   var app = angular.module("verses", []);
 
-  app.controller("ProverbsController", [ '$http', function($http) {
+  app.controller("ProverbsController", [ '$http', '$routeParams', function($http, $routeParams) {
     var self = this;
     self.proverbs = [];
+    var url = 'http://localhost:3000/api/chapter/1';
 
-    $http.get('http://localhost:3000/api/chapter/1').success(function(data) {
+    if ($routeParams.keyword) {
+      url = 'http://localhost:3000/api/verses/keyword/' + encodeURIComponent($routeParams.keyword);
+    }
+
+    $http.get(url).success(function(data) {
       self.proverbs = data.verses;
+    });
+
+  } ]);
+
+  app.controller("KeywordsController", [ '$http', function($http) {
+    var self = this;
+    self.keywords = [];
+
+    $http.get('http://localhost:3000/api/keywords').success(function(data) {
+      self.keywords = data
     });
 
   } ]);

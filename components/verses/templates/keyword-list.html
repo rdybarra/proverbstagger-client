@@ -1,0 +1,10 @@
+      <div id="keywords" ng-controller="KeywordsController as keywords">
+        <h1>Keywordz</h1>
+
+        <ul ng-repeat="keyword in keywords.keywords">
+          <li>
+            <strong><a href='#/keyword/{{keyword.value|encodeUri}}'>{{keyword.value}}</a></strong>
+          </li>
+        </ul>
+
+      </div><!-- #keywords -->
