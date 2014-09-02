@@ -13,6 +13,16 @@
       <div id="logo">
         <span>A proverb for every occassion...</span>
       </div>
+    </div><!-- .inner -->
+
+    <div id="search" ng-controller="SearchController as search">
+      <div class="inner">
+        <form id="searchForm" name="searchForm" ng-submit="search.doSearch()" novalidate>
+          <input type="text" name="term" placeholder="search by keyword..." ng-model="search.term" />
+        </form>
+        </div><!-- .inner -->
+    </div>
+
     </div>
   </header>
 

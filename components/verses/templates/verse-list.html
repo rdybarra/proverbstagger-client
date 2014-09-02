@@ -12,6 +12,7 @@
             This verse is about...
             <span ng-repeat="association in proverb.keyword_associations">
               {{association.keyword.value}} ({{association.count}})
+              <div keyword-options></div>
             </span>
 
             <div class="keyword-form-wrap" keyword-form></div>
