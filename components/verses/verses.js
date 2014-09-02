@@ -1,17 +1,36 @@
 (function(){
   var app = angular.module("verses", []);
 
-  app.controller("ProverbsController", [ '$http', '$routeParams', function($http, $routeParams) {
+  app.controller("ProverbsController", [ '$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
     var self = this;
     self.proverbs = [];
-    var url = 'http://localhost:3000/api/chapter/1';
+    this.chapter = 1;
+    this.title = 'Proverbs';
+
+    if ($routeParams.chapter) {
+      this.chapter = $routeParams.chapter;
+    }
+    var url = 'http://localhost:3000/api/chapter/' + this.chapter;
+    this.title = 'Proverbs Chapter ' + this.chapter;
 
     if ($routeParams.keyword) {
       url = 'http://localhost:3000/api/verses/keyword/' + encodeURIComponent($routeParams.keyword);
+      this.title = 'Keyword Results For "' + $routeParams.keyword + '"';
     }
 
     $http.get(url).success(function(data) {
       self.proverbs = data.verses;
+    });
+
+    $scope.$on('removeAssociation', function(event, association) {
+      for (var i = self.proverbs.length - 1; i >= 0; i--) {
+        var associations = self.proverbs[i].keyword_associations;
+        for (var j = associations.length - 1; j >= 0; j--) {
+          if (associations[j].id == association.id) {
+            self.proverbs[i].keyword_associations.splice(j, 1);
+          }
+        };
+      };
     });
 
   } ]);
@@ -87,22 +106,28 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-options.html',
-      controller: function($http) {
+      controller: function($scope, $http) {
           this.canDelete = function(association) {
             //if (association.ip_address == '127.0.0.1' && ''
             
             var created = new Date(association.created_at);
             var now = new Date();
-            var offset = 10800000; // 15 minutes
+            var offset = 108000000; // 15 minutes
 
             if (now - created < offset) {
               return true;
             }
 
             return false;
-          },
+          };
+
           this.delete = function(association) {
-            console.log('delte');
+
+            $http.delete('http://localhost:3000/api/keyword_associations/' + association.id).success(function() {
+              console.log('deleted association with ID: ' + association.id);
+              $scope.$emit('removeAssociation', association);
+            });
+
           }
       },
       controllerAs: 'options'

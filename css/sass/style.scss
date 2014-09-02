@@ -35,8 +35,6 @@ header#header {
 
   #searchForm {
     @include span(4 of 12);
-    margin: 0 auto !important;
-    float: none !important;
   }
 
   input {
@@ -72,6 +70,25 @@ header#header {
       display: none;
     }
 
+  }
+
+  .leadup {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .keyword {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .keyword-options {
+    display: inline-block;
+    vertical-align: middle;
+
+    .delete {
+      cursor: pointer;
+    }
   }
 
 }

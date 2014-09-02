@@ -1,6 +1,6 @@
 
       <div id="verses" ng-controller="ProverbsController as proverbs">
-        <h1>Proverbs</h1>
+        <h1>{{proverbs.title}}</h1>
 
         <div class="verse" ng-repeat="proverb in proverbs.proverbs">
           <p>
@@ -9,11 +9,11 @@
           </p>
 
           <section class="keywords">
-            This verse is about...
-            <span ng-repeat="association in proverb.keyword_associations">
-              {{association.keyword.value}} ({{association.count}})
-              <div keyword-options></div>
-            </span>
+            <div class="leadup">This verse is about...</div>
+            <div class="keyword" ng-repeat="association in proverb.keyword_associations">
+              <span class="value">{{association.keyword.value}} ({{association.count}})</span>
+              <div class="keyword-options" keyword-options></div>
+            </div>
 
             <div class="keyword-form-wrap" keyword-form></div>
           </section><!-- keywords -->

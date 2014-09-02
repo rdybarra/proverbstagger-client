@@ -13,6 +13,10 @@
           templateUrl: 'components/verses/templates/verse-list.html',
           controller: 'ProverbsController'
         }).
+        when('/chapter/:chapter', {
+          templateUrl: 'components/verses/templates/verse-list.html',
+          controller: 'ProverbsController'
+        }).
         otherwise({
           templateUrl: 'components/verses/templates/verse-list.html',
           controller: 'ProverbsController'

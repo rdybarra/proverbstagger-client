@@ -825,22 +825,20 @@ header#header {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
-  margin: 0 auto !important;
-  float: none !important;
 }
-/* line 42, sass/style.scss */
+/* line 40, sass/style.scss */
 #search input {
   font-size: 1.2em;
   padding: 5px 10px;
 }
 
-/* line 48, sass/style.scss */
+/* line 46, sass/style.scss */
 .verse-text {
   font-family: "Roboto Slab", serif;
   font-size: 1.2em;
 }
 
-/* line 53, sass/style.scss */
+/* line 51, sass/style.scss */
 .keywords {
   font-family: "Roboto Condensed", sans-serif;
   background: #E0EFF1;
@@ -850,42 +848,61 @@ header#header {
   -webkit-border-radius: 7px;
   border-radius: 7px;
 }
-/* line 60, sass/style.scss */
+/* line 58, sass/style.scss */
 .keywords .keyword-form-wrap {
   display: inline-block;
 }
-/* line 64, sass/style.scss */
+/* line 62, sass/style.scss */
 .keywords .keyword-form {
   display: inline-block;
 }
-/* line 67, sass/style.scss */
+/* line 65, sass/style.scss */
 .keywords .keyword-form input {
   width: 150px;
 }
-/* line 71, sass/style.scss */
+/* line 69, sass/style.scss */
 .keywords .keyword-form input.submit {
   display: none;
 }
+/* line 75, sass/style.scss */
+.keywords .leadup {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 80, sass/style.scss */
+.keywords .keyword {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 85, sass/style.scss */
+.keywords .keyword-options {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 89, sass/style.scss */
+.keywords .keyword-options .delete {
+  cursor: pointer;
+}
 
-/* line 79, sass/style.scss */
+/* line 96, sass/style.scss */
 #main {
   padding: 20px 0;
 }
 
-/* line 83, sass/style.scss */
+/* line 100, sass/style.scss */
 footer#footer {
   padding: 20px 0;
   background-color: #000000;
   color: #dddddd;
 }
-/* line 88, sass/style.scss */
+/* line 105, sass/style.scss */
 footer#footer #footer-message,
 footer#footer #footer-date {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
 }
-/* line 93, sass/style.scss */
+/* line 110, sass/style.scss */
 footer#footer p {
   margin: 0;
 }
