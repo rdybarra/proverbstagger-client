@@ -813,32 +813,37 @@ header#header {
 #logo {
   font-size: 1.5em;
 }
+/* line 30, sass/style.scss */
+#logo a {
+  color: #ffffff;
+  text-decoration: none;
+}
 
-/* line 31, sass/style.scss */
+/* line 36, sass/style.scss */
 #search {
   background: #000000;
   margin-top: 20px;
   padding: 20px 0;
 }
-/* line 36, sass/style.scss */
+/* line 41, sass/style.scss */
 #search #searchForm {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
 }
-/* line 40, sass/style.scss */
+/* line 45, sass/style.scss */
 #search input {
   font-size: 1.2em;
   padding: 5px 10px;
 }
 
-/* line 46, sass/style.scss */
+/* line 51, sass/style.scss */
 .verse-text {
   font-family: "Roboto Slab", serif;
   font-size: 1.2em;
 }
 
-/* line 51, sass/style.scss */
+/* line 56, sass/style.scss */
 .keywords {
   font-family: "Roboto Condensed", sans-serif;
   background: #E0EFF1;
@@ -848,61 +853,81 @@ header#header {
   -webkit-border-radius: 7px;
   border-radius: 7px;
 }
-/* line 58, sass/style.scss */
+/* line 63, sass/style.scss */
 .keywords .keyword-form-wrap {
   display: inline-block;
 }
-/* line 62, sass/style.scss */
+/* line 67, sass/style.scss */
 .keywords .keyword-form {
   display: inline-block;
 }
-/* line 65, sass/style.scss */
+/* line 70, sass/style.scss */
 .keywords .keyword-form input {
   width: 150px;
 }
-/* line 69, sass/style.scss */
+/* line 74, sass/style.scss */
 .keywords .keyword-form input.submit {
   display: none;
 }
-/* line 75, sass/style.scss */
+/* line 80, sass/style.scss */
 .keywords .leadup {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 80, sass/style.scss */
+/* line 85, sass/style.scss */
 .keywords .keyword {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 85, sass/style.scss */
+/* line 89, sass/style.scss */
+.keywords .keyword:after {
+  content: ',';
+  margin-right: 10px;
+}
+/* line 94, sass/style.scss */
+.keywords .keyword:last-child {
+  content: '' !important;
+  margin: 0;
+}
+/* line 102, sass/style.scss */
 .keywords .keyword-options {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 89, sass/style.scss */
+/* line 106, sass/style.scss */
 .keywords .keyword-options .delete {
   cursor: pointer;
 }
 
-/* line 96, sass/style.scss */
+/* line 113, sass/style.scss */
 #main {
   padding: 20px 0;
 }
+/* line 116, sass/style.scss */
+#main h1 {
+  margin-bottom: 0;
+}
 
-/* line 100, sass/style.scss */
+/* line 121, sass/style.scss */
+#chapter-form {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* line 126, sass/style.scss */
 footer#footer {
   padding: 20px 0;
   background-color: #000000;
   color: #dddddd;
 }
-/* line 105, sass/style.scss */
+/* line 131, sass/style.scss */
 footer#footer #footer-message,
 footer#footer #footer-date {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
 }
-/* line 110, sass/style.scss */
+/* line 136, sass/style.scss */
 footer#footer p {
   margin: 0;
 }

@@ -1,7 +1,7 @@
 (function(){
   var app = angular.module("verses", []);
 
-  app.controller("ProverbsController", [ '$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+  app.controller("ProverbsController", [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
     var self = this;
     self.proverbs = [];
     this.chapter = 1;
@@ -10,6 +10,10 @@
     if ($routeParams.chapter) {
       this.chapter = $routeParams.chapter;
     }
+    else {
+      this.chapter = new Date().getDate();
+    }
+
     var url = 'http://localhost:3000/api/chapter/' + this.chapter;
     this.title = 'Proverbs Chapter ' + this.chapter;
 
@@ -31,6 +35,10 @@
           }
         };
       };
+    });
+
+    $scope.$on('switchChapter', function(event, chapterSwitcher) {
+      $location.path('/chapter/' + chapterSwitcher.chapter);
     });
 
   } ]);
@@ -131,6 +139,31 @@
           }
       },
       controllerAs: 'options'
+    };
+  });
+
+  app.directive('chapterForm', function() {
+    return {
+      restrict: 'A',
+      templateUrl: 'components/verses/templates/chapter-form.html',
+      controller: function($scope, $routeParams) {
+          var self = this;
+
+          if ($routeParams.chapter) {
+            this.chapter = $routeParams.chapter;
+          }
+          else if ($routeParams.keyword) {
+            this.chapter = '';
+          }
+          else {
+            this.chapter = new Date().getDate();
+          }
+
+          this.switchChapter = function() {
+            $scope.$emit('switchChapter', self);
+          };
+      },
+      controllerAs: 'chapterSwitcher'
     };
   });
 

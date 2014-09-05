@@ -26,6 +26,11 @@ header#header {
 
 #logo {
   font-size: 1.5em;
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
 }
 
 #search {
@@ -80,6 +85,18 @@ header#header {
   .keyword {
     display: inline-block;
     vertical-align: middle;
+
+    &:after {
+      content: ',';
+      margin-right: 10px;
+    };
+
+    &:last-child {
+      content: '' !important;
+      margin: 0;
+    };
+
+
   }
 
   .keyword-options {
@@ -95,6 +112,15 @@ header#header {
 
 #main {
   padding: 20px 0;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+#chapter-form {
+  display: inline-block;
+  margin-left: 10px;
 }
 
 footer#footer {
