@@ -1,7 +1,8 @@
 (function(){
-  var app = angular.module("verses", []);
+  var app = angular.module('verses', []);
+  var apiUrl = 'http://localhost:3000/api';
 
-  app.controller("ProverbsController", [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
+  app.controller('ProverbsController', [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
     var self = this;
     self.proverbs = [];
     this.chapter = 1;
@@ -14,11 +15,11 @@
       this.chapter = new Date().getDate();
     }
 
-    var url = 'http://localhost:3000/api/chapter/' + this.chapter;
+    var url = apiUrl + '/chapter/' + this.chapter;
     this.title = 'Proverbs Chapter ' + this.chapter;
 
     if ($routeParams.keyword) {
-      url = 'http://localhost:3000/api/verses/keyword/' + encodeURIComponent($routeParams.keyword);
+      url = apiUrl + '/verses/keyword/' + encodeURIComponent($routeParams.keyword);
       this.title = 'Keyword Results For "' + $routeParams.keyword + '"';
     }
 
@@ -43,17 +44,17 @@
 
   } ]);
 
-  app.controller("KeywordsController", [ '$http', function($http) {
+  app.controller('KeywordsController', [ '$http', function($http) {
     var self = this;
     self.keywords = [];
 
-    $http.get('http://localhost:3000/api/keywords').success(function(data) {
+    $http.get(apiUrl + '/keywords').success(function(data) {
       self.keywords = data
     });
 
   } ]);
 
-  app.controller("SearchController", [ '$location', function($location) {
+  app.controller('SearchController', [ '$location', function($location) {
 
     var self = this;
     self.verses = [];
@@ -86,7 +87,7 @@
                 'count': foundAssociation.count + 1
               };
 
-              $http({ method: 'PATCH', url: 'http://localhost:3000/api/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
+              $http({ method: 'PATCH', url: apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
                 foundAssociation.count = association.count;
               });
             }
@@ -98,7 +99,7 @@
               'keyword': this.keyword
             };
 
-            $http.post('http://localhost:3000/api/keyword_associations', data).success(function(association) {
+            $http.post(apiUrl + '/keyword_associations', data).success(function(association) {
               proverb.keyword_associations.push(association);
             });
           }
@@ -131,8 +132,7 @@
 
           this.delete = function(association) {
 
-            $http.delete('http://localhost:3000/api/keyword_associations/' + association.id).success(function() {
-              console.log('deleted association with ID: ' + association.id);
+            $http.delete(apiUrl + '/keyword_associations/' + association.id).success(function() {
               $scope.$emit('removeAssociation', association);
             });
 
@@ -142,7 +142,7 @@
     };
   });
 
-  app.directive('chapterForm', function() {
+  app.directive('chapterSwitcher', function() {
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/chapter-form.html',
@@ -163,9 +163,8 @@
             $scope.$emit('switchChapter', self);
           };
       },
-      controllerAs: 'chapterSwitcher'
+      controllerAs: 'switcher'
     };
   });
-
 
 })();

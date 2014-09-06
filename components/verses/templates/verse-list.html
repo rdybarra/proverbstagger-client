@@ -1,11 +1,11 @@
 
       <div id="verses" ng-controller="ProverbsController as proverbs">
         <h1>{{proverbs.title}}</h1>
-        <div id="chapter-form-wrap" chapter-form></div>
+        <div id="chapter-switcher-wrap" chapter-switcher></div>
 
         <div class="verse" ng-repeat="proverb in proverbs.proverbs">
           <p>
-            <strong>{{proverb.verse}} &middot; </strong>
+            <strong>{{proverb.chapter}}:{{proverb.verse}} &middot; </strong>
             <span class="verse-text">{{proverb.text}}</span>
           </p>
 
