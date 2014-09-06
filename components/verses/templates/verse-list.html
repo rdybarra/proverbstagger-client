@@ -1,17 +1,17 @@
 
-      <div id="verses" ng-controller="ProverbsController as proverbs">
-        <h1>{{proverbs.title}}</h1>
+      <div id="verses" ng-controller="VersesController as verses">
+        <h1>{{verses.title}}</h1>
         <div id="chapter-switcher-wrap" chapter-switcher></div>
 
-        <div class="verse" ng-repeat="proverb in proverbs.proverbs">
+        <div class="verse" ng-repeat="verse in verses.verses">
           <p>
-            <strong>{{proverb.chapter}}:{{proverb.verse}} &middot; </strong>
-            <span class="verse-text">{{proverb.text}}</span>
+            <strong>{{verse.chapter}}:{{verse.verse}} &middot; </strong>
+            <span class="verse-text">{{verse.text}}</span>
           </p>
 
           <section class="keywords">
             <div class="leadup">This verse is about...</div>
-            <div class="keyword" ng-repeat="association in proverb.keyword_associations">
+            <div class="keyword" ng-repeat="association in verse.keyword_associations">
               <span class="value">{{association.keyword.value}} ({{association.count}})</span>
               <div class="keyword-options" keyword-options></div>
             </div>

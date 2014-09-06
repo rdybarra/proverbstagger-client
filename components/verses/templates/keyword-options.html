@@ -1,2 +1,2 @@
 
-        <span class="delete fa fa-times" ng-if="options.canDelete(association)" ng-click="options.delete(association)"></span>
+        <span class="delete fa fa-times" ng-if="options.setAssociation(association) && options.canDelete" ng-click="options.delete(association)"></span>

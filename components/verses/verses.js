@@ -2,9 +2,9 @@
   var app = angular.module('verses', []);
   var apiUrl = 'http://localhost:3000/api';
 
-  app.controller('ProverbsController', [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
+  app.controller('VersesController', [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
     var self = this;
-    self.proverbs = [];
+    self.verses = [];
     this.chapter = 1;
     this.title = 'Proverbs';
 
@@ -24,15 +24,15 @@
     }
 
     $http.get(url).success(function(data) {
-      self.proverbs = data.verses;
+      self.verses = data.verses;
     });
 
     $scope.$on('removeAssociation', function(event, association) {
-      for (var i = self.proverbs.length - 1; i >= 0; i--) {
-        var associations = self.proverbs[i].keyword_associations;
+      for (var i = self.verses.length - 1; i >= 0; i--) {
+        var associations = self.verses[i].keyword_associations;
         for (var j = associations.length - 1; j >= 0; j--) {
           if (associations[j].id == association.id) {
-            self.proverbs[i].keyword_associations.splice(j, 1);
+            self.verses[i].keyword_associations.splice(j, 1);
           }
         };
       };
@@ -73,13 +73,13 @@
         this.keyword = {};
         this.association = {};
 
-        this.addAssociation = function(proverb) {
+        this.addAssociation = function(verse) {
           var unique = true;
 
-          for (var i = 0; i < proverb.keyword_associations.length; i++) {
-            if (this.keyword.value == proverb.keyword_associations[i].keyword.value) {
+          for (var i = 0; i < verse.keyword_associations.length; i++) {
+            if (this.keyword.value == verse.keyword_associations[i].keyword.value) {
               unique = false;
-              var foundAssociation = proverb.keyword_associations[i];
+              var foundAssociation = verse.keyword_associations[i];
 
               var data = {
                 'verse_id': foundAssociation.verse_id,
@@ -95,12 +95,12 @@
 
           if (unique) {
             var data = {
-              'verse_id': proverb.id,
+              'verse_id': verse.id,
               'keyword': this.keyword
             };
 
             $http.post(apiUrl + '/keyword_associations', data).success(function(association) {
-              proverb.keyword_associations.push(association);
+              verse.keyword_associations.push(association);
             });
           }
 
@@ -116,27 +116,43 @@
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-options.html',
       controller: function($scope, $http) {
-          this.canDelete = function(association) {
-            //if (association.ip_address == '127.0.0.1' && ''
-            
-            var created = new Date(association.created_at);
-            var now = new Date();
-            var offset = 108000000; // 15 minutes
+        var self = this;
+        this.canDelete = false;
+        this.association = {};
 
-            if (now - created < offset) {
-              return true;
-            }
+        this.setAssociation = function(association) {
+          self.association = association;
+          return true;
+        }
 
-            return false;
-          };
+        this.isRecent = function() {
+          var created = new Date(self.association.created_at);
+          var now = new Date();
+          var offset = 9000000; // 15 minutes
 
-          this.delete = function(association) {
-
-            $http.delete(apiUrl + '/keyword_associations/' + association.id).success(function() {
-              $scope.$emit('removeAssociation', association);
-            });
-
+          if (now - created < offset) {
+            return true;
           }
+
+          return false;
+        };
+
+        this.delete = function() {
+          $http.delete(apiUrl + '/keyword_associations/' + self.association.id).success(function() {
+            $scope.$emit('removeAssociation', self.association);
+          });
+        };
+
+        this.getIPAddress = function() {
+          $http.get('http://freegeoip.net/json/').success(function(data) {
+            if (self.isRecent() && data.ip == self.association.ip_address) {
+              self.canDelete = true;
+            }
+          });
+        };
+
+        this.isRecent();
+        this.getIPAddress();
       },
       controllerAs: 'options'
     };

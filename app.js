@@ -11,15 +11,15 @@
         }).
         when('/keyword/:keyword', {
           templateUrl: 'components/verses/templates/verse-list.html',
-          controller: 'ProverbsController'
+          controller: 'VersesController'
         }).
         when('/chapter/:chapter', {
           templateUrl: 'components/verses/templates/verse-list.html',
-          controller: 'ProverbsController'
+          controller: 'VersesController'
         }).
         otherwise({
           templateUrl: 'components/verses/templates/verse-list.html',
-          controller: 'ProverbsController'
+          controller: 'VersesController'
         });
     }
   ]);
