@@ -21,6 +21,7 @@ a {
   @include container(80%);
   max-width: 980px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 header#header {
@@ -44,13 +45,19 @@ header#header {
   padding: $verticalSpace 0;
 
   #searchForm {
-    @include span(4 of 12);
+    display: inline-block;
+    margin-right: 10px;
   }
 
   input {
     font-size: 1.2em;
     padding: 5px 10px;
   }
+}
+
+#menu {
+  display: inline-block;
+  line-height: 34px;
 }
 
 .verse-text {
@@ -90,6 +97,7 @@ header#header {
   .keyword {
     display: inline-block;
     vertical-align: middle;
+    line-height: 2em;
 
     &:after {
       content: ',';
@@ -119,7 +127,7 @@ header#header {
   padding: 20px 0;
 
   h1 {
-    margin-bottom: 0;
+    margin-bottom: 5px;
   }
 }
 

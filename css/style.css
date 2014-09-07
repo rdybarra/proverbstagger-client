@@ -800,6 +800,7 @@ a {
   margin-right: auto;
   max-width: 980px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 /* line 12, ../../../../home/ricky/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/susy-2.1.3/sass/susy/output/support/_clearfix.scss */
 .inner:after {
@@ -808,48 +809,53 @@ a {
   clear: both;
 }
 
-/* line 26, sass/style.scss */
+/* line 27, sass/style.scss */
 header#header {
   padding: 20px 0 0;
   background: #680148;
   color: #dddddd;
 }
 
-/* line 32, sass/style.scss */
+/* line 33, sass/style.scss */
 #logo {
   font-size: 1.5em;
 }
-/* line 35, sass/style.scss */
+/* line 36, sass/style.scss */
 #logo a {
   color: #ffffff;
   text-decoration: none;
 }
 
-/* line 41, sass/style.scss */
+/* line 42, sass/style.scss */
 #search {
   background: #000000;
   margin-top: 20px;
   padding: 20px 0;
 }
-/* line 46, sass/style.scss */
+/* line 47, sass/style.scss */
 #search #searchForm {
-  width: 32.20339%;
-  float: left;
-  margin-right: 1.69492%;
+  display: inline-block;
+  margin-right: 10px;
 }
-/* line 50, sass/style.scss */
+/* line 52, sass/style.scss */
 #search input {
   font-size: 1.2em;
   padding: 5px 10px;
 }
 
-/* line 56, sass/style.scss */
+/* line 58, sass/style.scss */
+#menu {
+  display: inline-block;
+  line-height: 34px;
+}
+
+/* line 63, sass/style.scss */
 .verse-text {
   font-family: "Roboto Slab", serif;
   font-size: 1.2em;
 }
 
-/* line 61, sass/style.scss */
+/* line 68, sass/style.scss */
 .keywords {
   font-family: "Roboto Condensed", sans-serif;
   background: #E0EFF1;
@@ -859,81 +865,82 @@ header#header {
   -webkit-border-radius: 7px;
   border-radius: 7px;
 }
-/* line 68, sass/style.scss */
+/* line 75, sass/style.scss */
 .keywords .keyword-form-wrap {
   display: inline-block;
 }
-/* line 72, sass/style.scss */
+/* line 79, sass/style.scss */
 .keywords .keyword-form {
   display: inline-block;
 }
-/* line 75, sass/style.scss */
+/* line 82, sass/style.scss */
 .keywords .keyword-form input {
   width: 150px;
 }
-/* line 79, sass/style.scss */
+/* line 86, sass/style.scss */
 .keywords .keyword-form input.submit {
   display: none;
 }
-/* line 85, sass/style.scss */
+/* line 92, sass/style.scss */
 .keywords .leadup {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 90, sass/style.scss */
+/* line 97, sass/style.scss */
 .keywords .keyword {
   display: inline-block;
   vertical-align: middle;
+  line-height: 2em;
 }
-/* line 94, sass/style.scss */
+/* line 102, sass/style.scss */
 .keywords .keyword:after {
   content: ',';
   margin-right: 10px;
 }
-/* line 99, sass/style.scss */
+/* line 107, sass/style.scss */
 .keywords .keyword:last-child {
   content: '' !important;
   margin: 0;
 }
-/* line 107, sass/style.scss */
+/* line 115, sass/style.scss */
 .keywords .keyword-options {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 111, sass/style.scss */
+/* line 119, sass/style.scss */
 .keywords .keyword-options .delete {
   cursor: pointer;
 }
 
-/* line 118, sass/style.scss */
+/* line 126, sass/style.scss */
 #main {
   padding: 20px 0;
 }
-/* line 121, sass/style.scss */
+/* line 129, sass/style.scss */
 #main h1 {
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
-/* line 126, sass/style.scss */
+/* line 134, sass/style.scss */
 #chapter-switcher {
   display: inline-block;
   margin-left: 10px;
 }
 
-/* line 131, sass/style.scss */
+/* line 139, sass/style.scss */
 footer#footer {
   padding: 20px 0;
   background-color: #000000;
   color: #dddddd;
 }
-/* line 136, sass/style.scss */
+/* line 144, sass/style.scss */
 footer#footer #footer-message,
 footer#footer #footer-date {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
 }
-/* line 141, sass/style.scss */
+/* line 149, sass/style.scss */
 footer#footer p {
   margin: 0;
 }

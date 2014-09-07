@@ -2,6 +2,9 @@
 // ============
 
 @import "susy";
+@import "breakpoint";
+
+$breakpoint-medium-width: 500px;
 
 $susy: (
   columns: 12,
