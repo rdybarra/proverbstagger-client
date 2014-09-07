@@ -1,6 +1,6 @@
 (function(){
   var app = angular.module('verses', []);
-  var apiUrl = 'http://localhost:3000/api';
+  var apiUrl = 'http://api.proverbfeo.com/api';
 
   app.controller('VersesController', [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
     var self = this;
