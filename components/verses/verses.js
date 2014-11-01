@@ -31,9 +31,9 @@
       addAssociation: function(verse, keyword) {
           var deferred = $q.defer();
           var unique = true;
-console.log(verse);
+
           for (var i = 0; i < verse.keyword_associations.length; i++) {
-            console.log(keyword);
+
             if (keyword.value == verse.keyword_associations[i].keyword.value) {
               unique = false;
               var foundAssociation = verse.keyword_associations[i];
@@ -43,7 +43,7 @@ console.log(verse);
                 'keyword_id': foundAssociation.keyword_id,
                 'count': foundAssociation.count + 1
               };
-console.log('here');
+
               $http({ method: 'PATCH', url: config.apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
                 foundAssociation.count = association.count;
                 deferred.resolve(association.count);
@@ -56,7 +56,7 @@ console.log('here');
               'verse_id': verse.id,
               'keyword': keyword
             };
-console.log('no he');
+
             $http.post(config.apiUrl + '/keyword_associations', data).success(function(association) {
               verse.keyword_associations.push(association);
               deferred.resolve(1);
@@ -70,7 +70,38 @@ console.log('no he');
           $http.delete(config.apiUrl + '/keyword_associations/' + association.id).success(function() {
             deferred.resolve(true);
           });
-          return deferred.promise
+          return deferred.promise;
+      },
+      canDelete: function(association) {
+        var deferred = $q.defer();
+
+        if (!this.isRecent(association)) {
+          deferred.resolve(false);
+        }
+
+        this.doesIPAddressMatch(association.ip_address).then(function(ipAddressMatches) {
+          deferred.resolve(ipAddressMatches);
+        });
+
+        return deferred.promise;
+      },
+      isRecent: function(association) {
+        var created = new Date(association.created_at);
+        var now = new Date();
+        var offset = 9000000; // 15 minutes
+
+        if (now - created < offset) {
+          return true;
+        }
+
+        return false;
+      },
+      doesIPAddressMatch: function(ipAddress) {
+        var deferred = $q.defer();
+        $http.get('http://freegeoip.net/json/').success(function(data) {
+            deferred.resolve(data.ip == ipAddress);
+        });
+        return deferred.promise;
       }
     };
   } ]);
@@ -170,6 +201,12 @@ console.log('no he');
           return true;
         }
 
+        this.initCanDelete = function() {
+          keywordFactory.canDelete(self.association).then(function(canDelete) {
+            self.canDelete = canDelete;
+          });
+        }
+
         this.delete = function() {
           if (self.canDelete) {
             keywordFactory.deleteAssociation(self.association).then(function(status) {
@@ -178,34 +215,7 @@ console.log('no he');
           }
         };
 
-        this.isRecent = function() {
-          var created = new Date(self.association.created_at);
-          var now = new Date();
-          var offset = 9000000; // 15 minutes
-
-          if (now - created < offset) {
-            return true;
-          }
-
-          return false;
-        };
-
-        this.delete = function() {
-          $http.delete(config.apiUrl + '/keyword_associations/' + self.association.id).success(function() {
-            $scope.$emit('removeAssociation', self.association);
-          });
-        };
-
-        this.getIPAddress = function() {
-          $http.get('http://freegeoip.net/json/').success(function(data) {
-            if (self.isRecent() && data.ip == self.association.ip_address) {
-              self.canDelete = true;
-            }
-          });
-        };
-
-        this.isRecent();
-        this.getIPAddress();
+        this.initCanDelete();
       },
       controllerAs: 'options'
     };
