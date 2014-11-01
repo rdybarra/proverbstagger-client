@@ -64,6 +64,13 @@ console.log('no he');
           }
 
           return deferred.promise
+      },
+      deleteAssociation: function(association) {
+          var deferred = $q.defer();
+          $http.delete(config.apiUrl + '/keyword_associations/' + association.id).success(function() {
+            deferred.resolve(true);
+          });
+          return deferred.promise
       }
     };
   } ]);
@@ -153,7 +160,7 @@ console.log('no he');
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-options.html',
-      controller: function($scope, $http, config) {
+      controller: function($scope, $http, config, keywordFactory) {
         var self = this;
         this.canDelete = false;
         this.association = {};
@@ -162,6 +169,14 @@ console.log('no he');
           self.association = association;
           return true;
         }
+
+        this.delete = function() {
+          if (self.canDelete) {
+            keywordFactory.deleteAssociation(self.association).then(function(status) {
+              $scope.$emit('removeAssociation', self.association);
+            });
+          }
+        };
 
         this.isRecent = function() {
           var created = new Date(self.association.created_at);
