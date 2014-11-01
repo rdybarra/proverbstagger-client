@@ -62,17 +62,13 @@
       };
     });
 
-    $scope.$on('switchChapter', function(event, chapterSwitcher) {
-      $location.path('/chapter/' + chapterSwitcher.chapter);
-    });
-
   } ]);
 
   app.controller('KeywordsController', [ '$http', function($http) {
     var self = this;
     self.keywords = [];
 
-    $http.get(apiUrl + '/keywords').success(function(data) {
+    $http.get(config.apiUrl + '/keywords').success(function(data) {
       self.keywords = data
     });
 
@@ -111,7 +107,7 @@
                 'count': foundAssociation.count + 1
               };
 
-              $http({ method: 'PATCH', url: apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
+              $http({ method: 'PATCH', url: config.apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
                 foundAssociation.count = association.count;
               });
             }
@@ -123,7 +119,7 @@
               'keyword': this.keyword
             };
 
-            $http.post(apiUrl + '/keyword_associations', data).success(function(association) {
+            $http.post(config.apiUrl + '/keyword_associations', data).success(function(association) {
               verse.keyword_associations.push(association);
             });
           }
@@ -162,7 +158,7 @@
         };
 
         this.delete = function() {
-          $http.delete(apiUrl + '/keyword_associations/' + self.association.id).success(function() {
+          $http.delete(config.apiUrl + '/keyword_associations/' + self.association.id).success(function() {
             $scope.$emit('removeAssociation', self.association);
           });
         };
