@@ -23,6 +23,9 @@
           templateUrl: 'components/verses/views/verse-list.html',
           controller: 'VersesController'
         }).
+        when('/about', {
+          templateUrl: 'components/static/views/about.html'
+        }).
         otherwise({
           templateUrl: 'components/verses/views/verse-list.html',
           controller: 'VersesController'
