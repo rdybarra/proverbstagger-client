@@ -13,7 +13,7 @@
         $http.get(url).success(function(data) {
           deferred.resolve(data.verses);
         });
-        return deferred.promise
+        return deferred.promise;
       },
       getVersesByChapter: function(chapter) {
         var deferred = $q.defer();
@@ -21,7 +21,49 @@
         $http.get(url).success(function(data) {
           deferred.resolve(data.verses);
         });
-        return deferred.promise
+        return deferred.promise;
+      }
+    };
+  } ]);
+
+  app.factory('keywordFactory', ['$http', '$q', 'config', function($http, $q, config) {
+    return {
+      addAssociation: function(verse, keyword) {
+          var deferred = $q.defer();
+          var unique = true;
+console.log(verse);
+          for (var i = 0; i < verse.keyword_associations.length; i++) {
+            console.log(keyword);
+            if (keyword.value == verse.keyword_associations[i].keyword.value) {
+              unique = false;
+              var foundAssociation = verse.keyword_associations[i];
+
+              var data = {
+                'verse_id': foundAssociation.verse_id,
+                'keyword_id': foundAssociation.keyword_id,
+                'count': foundAssociation.count + 1
+              };
+console.log('here');
+              $http({ method: 'PATCH', url: config.apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
+                foundAssociation.count = association.count;
+                deferred.resolve(association.count);
+              });
+            }
+          };
+
+          if (unique) {
+            var data = {
+              'verse_id': verse.id,
+              'keyword': keyword
+            };
+console.log('no he');
+            $http.post(config.apiUrl + '/keyword_associations', data).success(function(association) {
+              verse.keyword_associations.push(association);
+              deferred.resolve(1);
+            });
+          }
+
+          return deferred.promise
       }
     };
   } ]);
@@ -89,42 +131,18 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-form.html',
-      controller: function($http, config) {
+      controller: function($http, config, keywordFactory) {
+        var self = this;
         this.keyword = {};
         this.association = {};
 
         this.addAssociation = function(verse) {
-          var unique = true;
 
-          for (var i = 0; i < verse.keyword_associations.length; i++) {
-            if (this.keyword.value == verse.keyword_associations[i].keyword.value) {
-              unique = false;
-              var foundAssociation = verse.keyword_associations[i];
+          keywordFactory.addAssociation(verse, this.keyword).then(function() {
+            // Clear the form
+            self.keyword = {};
+          });
 
-              var data = {
-                'verse_id': foundAssociation.verse_id,
-                'keyword_id': foundAssociation.keyword_id,
-                'count': foundAssociation.count + 1
-              };
-
-              $http({ method: 'PATCH', url: config.apiUrl + '/keyword_associations/' + foundAssociation.id, data: angular.toJson(data)}).success(function(association) {
-                foundAssociation.count = association.count;
-              });
-            }
-          };
-
-          if (unique) {
-            var data = {
-              'verse_id': verse.id,
-              'keyword': this.keyword
-            };
-
-            $http.post(config.apiUrl + '/keyword_associations', data).success(function(association) {
-              verse.keyword_associations.push(association);
-            });
-          }
-
-          this.keyword = {};
         };
       },
       controllerAs: 'association'
