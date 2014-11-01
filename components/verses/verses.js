@@ -182,7 +182,7 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/chapter-form.html',
-      controller: function($scope, $routeParams) {
+      controller: function($scope, $routeParams, $location) {
           var self = this;
 
           if ($routeParams.chapter) {
@@ -196,7 +196,7 @@
           }
 
           this.switchChapter = function() {
-            $scope.$emit('switchChapter', self);
+            $location.path('/chapter/' + this.chapter);
           };
       },
       controllerAs: 'switcher'
