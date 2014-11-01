@@ -1,4 +1,10 @@
-(function(){
+/**
+ * app.js
+ *
+ * The proverbstagger app.
+ */
+(function() {
+  'use strict';
 
   var verseApp = angular.module('verseApp', ['ngRoute', 'rt.encodeuri', 'verses']);
 
@@ -6,19 +12,19 @@
     function($routeProvider) {
       $routeProvider.
         when('/keywords', {
-          templateUrl: 'components/verses/templates/keyword-list.html',
-          controller: 'KeywordsController'
+          templateUrl: 'components/verses/views/keyword-list.html',
+          controller: 'BrowseController'
         }).
         when('/keyword/:keyword', {
-          templateUrl: 'components/verses/templates/verse-list.html',
+          templateUrl: 'components/verses/views/verse-list.html',
           controller: 'VersesController'
         }).
         when('/chapter/:chapter', {
-          templateUrl: 'components/verses/templates/verse-list.html',
+          templateUrl: 'components/verses/views/verse-list.html',
           controller: 'VersesController'
         }).
         otherwise({
-          templateUrl: 'components/verses/templates/verse-list.html',
+          templateUrl: 'components/verses/views/verse-list.html',
           controller: 'VersesController'
         });
     }
