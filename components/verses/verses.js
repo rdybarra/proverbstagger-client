@@ -1,31 +1,55 @@
 (function(){
   var app = angular.module('verses', []);
-  var apiUrl = 'http://api.proverbfeo.com/api';
 
-  app.controller('VersesController', [ '$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
+  app.value('config', {
+    apiUrl: 'http://localhost:3000/api'
+  });
+
+  app.factory('versesFactory', ['$http', '$q', 'config', function ($http, $q, config) {
+    return {
+      getVersesByKeyword: function(keyword) {
+        var deferred = $q.defer();
+        var url = config.apiUrl + '/verses/keyword/' + encodeURIComponent(keyword);
+        $http.get(url).success(function(data) {
+          deferred.resolve(data.verses);
+        });
+        return deferred.promise
+      },
+      getVersesByChapter: function(chapter) {
+        var deferred = $q.defer();
+        var url = config.apiUrl + '/chapter/' + chapter;
+        $http.get(url).success(function(data) {
+          deferred.resolve(data.verses);
+        });
+        return deferred.promise
+      }
+    };
+  } ]);
+
+  app.controller('VersesController', [ '$scope', '$http', '$routeParams', 'versesFactory', function($scope, $http, $routeParams, versesFactory) {
     var self = this;
     self.verses = [];
     this.chapter = 1;
     this.title = 'Proverbs';
 
-    if ($routeParams.chapter) {
-      this.chapter = $routeParams.chapter;
+    if ($routeParams.keyword) {
+      this.title = 'Keyword Results For "' + $routeParams.keyword + '"';
+      versesFactory.getVersesByKeyword($routeParams.keyword).then(function(verses) {
+        self.verses = verses;
+      });
     }
     else {
-      this.chapter = new Date().getDate();
+      if ($routeParams.chapter) {
+        this.chapter = $routeParams.chapter;
+      }
+      else {
+        this.chapter = new Date().getDate();
+      }
+      this.title = 'Proverbs Chapter ' + this.chapter;
+      versesFactory.getVersesByChapter(this.chapter).then(function(verses) {
+        self.verses = verses;
+      });
     }
-
-    var url = apiUrl + '/chapter/' + this.chapter;
-    this.title = 'Proverbs Chapter ' + this.chapter;
-
-    if ($routeParams.keyword) {
-      url = apiUrl + '/verses/keyword/' + encodeURIComponent($routeParams.keyword);
-      this.title = 'Keyword Results For "' + $routeParams.keyword + '"';
-    }
-
-    $http.get(url).success(function(data) {
-      self.verses = data.verses;
-    });
 
     $scope.$on('removeAssociation', function(event, association) {
       for (var i = self.verses.length - 1; i >= 0; i--) {
