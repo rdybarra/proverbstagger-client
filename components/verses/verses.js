@@ -64,7 +64,7 @@
 
   } ]);
 
-  app.controller('KeywordsController', [ '$http', function($http) {
+  app.controller('KeywordsController', [ '$http', function($http, config) {
     var self = this;
     self.keywords = [];
 
@@ -89,7 +89,7 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-form.html',
-      controller: function($http) {
+      controller: function($http, config) {
         this.keyword = {};
         this.association = {};
 
@@ -135,7 +135,7 @@
     return {
       restrict: 'A',
       templateUrl: 'components/verses/templates/keyword-options.html',
-      controller: function($scope, $http) {
+      controller: function($scope, $http, config) {
         var self = this;
         this.canDelete = false;
         this.association = {};
